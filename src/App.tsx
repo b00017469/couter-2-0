@@ -6,10 +6,11 @@ import {Setting} from "./components/Setting";
 function App() {
     let [startValue, setStartValue] = useState<number>(0)
     let [maxValue, setMaxValue] = useState<number>(5)
-    let [isChangedSettings, setIsChangedSettings] = useState<boolean>(false)
-    let [isCorrectInput, setIsCorrectInput]=useState<boolean>(true)
+    let [isChangeSettings, setIsChangeSettings] = useState<boolean>(false)
+    let [isCorrectInput, setIsCorrectInput] = useState<boolean>(true)
     const KEY_START_VALUE = 'startValue'
     const KEY_MAX_VALUE = 'maxValue'
+    const MASSAGE = "enter values and press 'SET'"
 
     const addCount = () => {
         if (startValue < maxValue) setStartValue(++startValue)
@@ -30,7 +31,7 @@ function App() {
     const onClickSetButtonHandler = () => {
         saveValue(KEY_START_VALUE, startValue)
         saveValue(KEY_MAX_VALUE, maxValue)
-
+        setIsChangeSettings(false)
     }
 
     const saveValue = (key: string, value: number) => {
@@ -51,13 +52,15 @@ function App() {
                      onClickSetButton={onClickSetButtonHandler}
                      startValue={startValue}
                      maxValue={maxValue}
-                     isChangedSettings={setIsChangedSettings}/>
-            <Counter count={startValue}
+                     isChangeSettings={setIsChangeSettings}
+                     isDisabled={!isChangeSettings}/>
+            <Counter massage={MASSAGE}
+                     startValue={startValue}
                      isMaxCount={isMaxCount}
                      addCount={addCount}
                      maxCount={maxValue}
                      resetCount={resetCount}
-                     isDisabled={isChangedSettings}/>
+                     isDisabled={isChangeSettings}/>
         </div>
     );
 }

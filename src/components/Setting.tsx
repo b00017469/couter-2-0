@@ -8,34 +8,26 @@ type SettingsPropsType = {
     setMaxValue: (value: number) => void
     setStartValue: (value: number) => void
     onClickSetButton: () => void
-    isChangedSettings: (status: boolean) => void
+    isChangeSettings: (status: boolean) => void
+    isDisabled: boolean
 }
 
 export const Setting = (props: SettingsPropsType) => {
-    const onChangeMaxValue = (value: number) => {
-        props.setMaxValue(value)
-    }
-    const onChangeStartValue = (value: number) => {
-        props.setStartValue(value)
-    }
-    const onClickHandler = () => {
-        props.onClickSetButton()
-    }
+
     return (
         <div className="Counter">
             <div>
                 <Input title={'max value:'}
-                       onChangeValue={onChangeMaxValue}
+                       onChangeValue={props.setMaxValue}
                        value={props.maxValue}
-                       isChangedSettings={props.isChangedSettings}/>
+                       isChangeSettings={props.isChangeSettings}/>
                 <Input title={'start value:'}
-                       onChangeValue={onChangeStartValue}
+                       onChangeValue={props.setStartValue}
                        value={props.startValue}
-                       isChangedSettings={props.isChangedSettings}/>
-
+                       isChangeSettings={props.isChangeSettings}/>
             </div>
             <div className="Counter">
-                <Button name="set" onClick={onClickHandler}/>
+                <Button name="set" onClick={props.onClickSetButton} isDisabled={props.isDisabled}/>
             </div>
         </div>
     );

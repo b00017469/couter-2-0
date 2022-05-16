@@ -1,15 +1,17 @@
 import React from 'react';
 
 type CountPropsType = {
-    count: number
+    startValue: number
     isMaxCount: boolean
+    massage: string
+    isClickSet: boolean
 }
 
 export const Count = (props: CountPropsType) => {
     const countClassName = `Count ${props.isMaxCount ? 'MaxCount' : ''}`
     return (
         <div className={countClassName}>
-            {props.count}
+            {props.startValue}
         </div>
     );
 };
