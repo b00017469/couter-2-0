@@ -4,7 +4,8 @@ type InputPropsType = {
     title: string
     value: number
     onChangeValue: (value: number) => void
-    isChangeSettings: (status:boolean)=>void
+    isChangeSettings: (status: boolean) => void
+    error: boolean
 }
 
 export const Input = (props: InputPropsType) => {
@@ -14,10 +15,11 @@ export const Input = (props: InputPropsType) => {
         props.onChangeValue(value)
         props.isChangeSettings(true)
     }
+    const inputClassName = `${props.error?'errorInput': 'Input'}`
     return (
         <div>
             <span>{props.title}</span>
-            <input type={"number"} onChange={onChangeHandler} value={`${props.value}`}/>
+            <input className={inputClassName} type={"number"} onChange={onChangeHandler} value={`${props.value}`}/>
         </div>
     );
 };

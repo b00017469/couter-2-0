@@ -28,6 +28,15 @@
     color: red;
 }
 
+.Input {
+    outline: none;
+}
+
+.errorInput {
+    outline: none;
+    border-color: red;
+}
+
 .Button {
     background-color: #61dafb;
     font-size: xx-large;

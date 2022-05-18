@@ -8,10 +8,11 @@ type CountPropsType = {
 }
 
 export const Count = (props: CountPropsType) => {
-    const countClassName = `Count ${props.isMaxCount ? 'MaxCount' : ''}`
+    const countClassName = `Count ${!props.isClickSet || props.isMaxCount ? 'MaxCount' : ''}`
+
     return (
         <div className={countClassName}>
-            {props.startValue}
+            {props.isClickSet ? props.startValue : props.massage}
         </div>
     );
 };
