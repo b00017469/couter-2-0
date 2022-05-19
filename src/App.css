@@ -3,56 +3,9 @@
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    font-size: xxx-large;
+    font-size: large;
     font-weight: bold;
-}
-
-.Counter {
-    border: solid #61dafb;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 5px;
-}
-
-.Count {
-    background-color: #61dafb;
-    padding: 20px;
-    color: #282c34;
-    border-radius: 10px;
-}
-
-.MaxCount {
-    color: red;
-}
-
-.Input {
-    outline: none;
-}
-
-.errorInput {
-    outline: none;
-    border-color: red;
-}
-
-.Button {
-    background-color: #61dafb;
-    font-size: xx-large;
-    font-weight: bold;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px;
-    border: none;
-}
-
-.Button:active {
-    background-color: #282c34;
-    color: #61dafb;
-}
-
-.Button:disabled {
-    background-color: #285567;
-    color: #282c34;
 }

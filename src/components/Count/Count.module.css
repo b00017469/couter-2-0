@@ -1,0 +1,17 @@
+
+.count {
+    composes: border-div from "../Settings/Settings.module.css";
+    font-size: 55px;
+    color: #61dafb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.max {
+    color: red;
+    font-size: 65px;
+}
+.massage {
+    font-size: 25px;
+}

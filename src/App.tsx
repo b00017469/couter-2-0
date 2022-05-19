@@ -1,19 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import Counter from "./components/Counter";
-import {Setting} from "./components/Setting";
+import Counter from "./components/Counter/Counter";
+import {Settings} from "./components/Settings/Settings";
 
 function App() {
     let [startValue, setStartValue] = useState<number>(0)
     let [maxValue, setMaxValue] = useState<number>(5)
     let [isChangeSettings, setIsChangeSettings] = useState<boolean>(false)
-    let [errorInput, setErrorInput] = useState<boolean>(false)
+    let [errorStartInput, setErrorStartInput] = useState<boolean>(false)
+    let [errorMaxInput, setErrorMaxInput] = useState<boolean>(false)
     const KEY_START_VALUE = 'startValue'
     const KEY_MAX_VALUE = 'maxValue'
     const MASSAGE_SET = "enter values and press 'SET'"
     const MASSAGE_INCORRECT_VALUE = "you enter incorrect value"
 
-    let massage = errorInput ? MASSAGE_INCORRECT_VALUE : MASSAGE_SET
+    let massage = errorStartInput||errorMaxInput ? MASSAGE_INCORRECT_VALUE : MASSAGE_SET
 
     const addCount = () => {
         if (startValue < maxValue) setStartValue(++startValue)
@@ -49,18 +50,22 @@ function App() {
         return value
     }
     const startValueForSetting = restoreValue(KEY_START_VALUE, 0)
-    console.log(errorInput)
+    const maxValueForSetting = restoreValue(KEY_MAX_VALUE, 5)
+    console.log(isMaxCount)
+    console.log('qqq')
     return (
         <div className="App">
-            <Setting setMaxValue={setMaxValue}
-                     setStartValue={setStartValue}
-                     onClickSetButton={onClickSetButtonHandler}
-                     startValue={startValueForSetting}
-                     maxValue={maxValue}
-                     isChangeSettings={setIsChangeSettings}
-                     setErrorInput={setErrorInput}
-                     errorInput={errorInput}
-                     isDisabled={!isChangeSettings}/>
+            <Settings setMaxValue={setMaxValue}
+                      setStartValue={setStartValue}
+                      onClickSetButton={onClickSetButtonHandler}
+                      startValue={startValueForSetting}
+                      maxValue={maxValueForSetting}
+                      isChangeSettings={setIsChangeSettings}
+                      setErrorStartInput={setErrorStartInput}
+                      setErrorMaxtInput={setErrorMaxInput}
+                      errorStartInput={errorStartInput}
+                      errorMaxInput={errorMaxInput}
+                      isDisabled={!isChangeSettings}/>
             <Counter massage={massage}
                      startValue={startValue}
                      isMaxCount={isMaxCount}

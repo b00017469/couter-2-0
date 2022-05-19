@@ -1,0 +1,17 @@
+.input {
+    outline: none;
+    font-size: 25px;
+    width: 150px;
+    border-radius: 10px;
+    border-color: #61dafb;
+    margin: 10px;
+}
+
+.error {
+    border-color: red;
+    background-color: #ff8bac;
+}
+.span{
+    margin-right: 10px;
+    font-size:25px;
+}

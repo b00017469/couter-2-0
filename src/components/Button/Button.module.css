@@ -1,0 +1,19 @@
+.button {
+    background-color: #61dafb;
+    font-size: xxx-large;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 13px;
+    border: none;
+}
+
+.button:active {
+    background-color: #282c34;
+    color: #61dafb;
+}
+
+.button:disabled {
+    background-color: #285567;
+    color: #282c34;
+}

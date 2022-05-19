@@ -1,4 +1,5 @@
 import React, {ChangeEvent} from 'react';
+import s from './Input.module.css'
 
 type InputPropsType = {
     title: string
@@ -15,10 +16,10 @@ export const Input = (props: InputPropsType) => {
         props.onChangeValue(value)
         props.isChangeSettings(true)
     }
-    const inputClassName = `${props.error?'errorInput': 'Input'}`
+    const inputClassName = `${s.input} ${props.error ? s.error : ''}`
     return (
         <div>
-            <span>{props.title}</span>
+            <span className={s.span}>{props.title}</span>
             <input className={inputClassName} type={"number"} onChange={onChangeHandler} value={`${props.value}`}/>
         </div>
     );
