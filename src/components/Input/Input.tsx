@@ -12,7 +12,7 @@ type InputPropsType = {
 export const Input = (props: InputPropsType) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let value = JSON.parse(e.currentTarget.value) as number
+        let value = +e.currentTarget.value
         props.onChangeValue(value)
         props.isChangeSettings(true)
     }

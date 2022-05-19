@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Count.module.css'
 
 type CountPropsType = {
-    startValue: number
+    incValue: number
     isMaxCount: boolean
     massage: string
     isClickSet: boolean
@@ -18,7 +18,7 @@ export const Count = (props: CountPropsType) => {
         }
     return (
         <div className={countClassName()}>
-            {props.isClickSet ? props.startValue : props.massage}
+            {props.isClickSet ? props.incValue : props.massage}
         </div>
     );
 };

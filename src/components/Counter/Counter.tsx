@@ -4,21 +4,21 @@ import {Button} from "../Button/Button";
 import s from './Counter.module.css'
 
 type CounterPropsType = {
-    startValue: number
+    incValue: number
     maxCount: number
     addCount: () => void
     resetCount: () => void
-    isMaxCount: boolean
     isDisabled: boolean
     massage: string
 }
 
 const Counter = (props: CounterPropsType) => {
-    const isDisabledIncButton = props.isDisabled || props.isMaxCount
+    const isMaxCount = props.incValue === props.maxCount
+    const isDisabledIncButton = props.isDisabled || isMaxCount
     return (
         <div className={s.counter}>
-            <Count startValue={props.startValue}
-                   isMaxCount={props.isMaxCount}
+            <Count incValue={props.incValue}
+                   isMaxCount={isMaxCount}
                    massage={props.massage}
                 isClickSet={!props.isDisabled}/>
             <div className={s.block}>

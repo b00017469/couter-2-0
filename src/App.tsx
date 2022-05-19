@@ -6,6 +6,7 @@ import {Settings} from "./components/Settings/Settings";
 function App() {
     let [startValue, setStartValue] = useState<number>(0)
     let [maxValue, setMaxValue] = useState<number>(5)
+    let [incValue, setIncValue] = useState<number>(startValue)
     let [isChangeSettings, setIsChangeSettings] = useState<boolean>(false)
     let [errorStartInput, setErrorStartInput] = useState<boolean>(false)
     let [errorMaxInput, setErrorMaxInput] = useState<boolean>(false)
@@ -14,13 +15,12 @@ function App() {
     const MASSAGE_SET = "enter values and press 'SET'"
     const MASSAGE_INCORRECT_VALUE = "you enter incorrect value"
 
-    let massage = errorStartInput||errorMaxInput ? MASSAGE_INCORRECT_VALUE : MASSAGE_SET
+    let massage = errorStartInput || errorMaxInput ? MASSAGE_INCORRECT_VALUE : MASSAGE_SET
 
     const addCount = () => {
-        if (startValue < maxValue) setStartValue(++startValue)
+        if (incValue < maxValue) setIncValue(++incValue)
     }
-    const resetCount = () => setStartValue(restoreValue(KEY_START_VALUE, 0))
-    const isMaxCount = startValue === maxValue
+    const resetCount = () => setIncValue(restoreValue(KEY_START_VALUE, 0))
 
     useEffect(() => {
         setValues()
@@ -29,13 +29,37 @@ function App() {
     const setValues = () => {
         setStartValue(restoreValue(KEY_START_VALUE, 0))
         setMaxValue(restoreValue(KEY_MAX_VALUE, 5))
+        setIncValue(restoreValue(KEY_START_VALUE, 0))
     }
 
-    const onClickSetButtonHandler = (startSetting: number, maxSetting: number) => {
-        saveValue(KEY_START_VALUE, startSetting)
-        saveValue(KEY_MAX_VALUE, maxSetting)
-        setStartValue(startSetting)
-        setMaxValue(maxSetting)
+    const setStartValueHandler = (value: number) => {
+        if (value < -1 || value > maxValue) {
+            setErrorStartInput(true)
+        } else {
+            setStartValue(value)
+            if (value === -1 || value === maxValue) {
+                setErrorStartInput(true)
+            } else setErrorStartInput(false)
+            if (value === maxValue) setErrorMaxInput(true)
+            else setErrorMaxInput(false)
+        }
+    }
+    const setMaxValueHandler = (value: number) => {
+        if (value < -1 || value < startValue) {
+            setErrorMaxInput(true)
+        } else {
+            setMaxValue(value)
+            if (value === -1 || value === startValue) {
+                setErrorMaxInput(true)
+            } else setErrorMaxInput(false)
+            if (value === startValue||startValue===-1) setErrorStartInput(true)
+            else setErrorStartInput(false)
+        }
+    }
+    const onClickSetButtonHandler = () => {
+        saveValue(KEY_START_VALUE, startValue)
+        saveValue(KEY_MAX_VALUE, maxValue)
+        setIncValue(startValue)
         setIsChangeSettings(false)
     }
 
@@ -46,29 +70,23 @@ function App() {
     const restoreValue = (key: string, defaultValue: number) => {
         let value = defaultValue
         const valueAsString = localStorage.getItem(key)
-        if (valueAsString !== null) value = JSON.parse(valueAsString) as number
+        if (valueAsString !== null) value = +valueAsString
         return value
     }
-    const startValueForSetting = restoreValue(KEY_START_VALUE, 0)
-    const maxValueForSetting = restoreValue(KEY_MAX_VALUE, 5)
-    console.log(isMaxCount)
-    console.log('qqq')
+
     return (
         <div className="App">
-            <Settings setMaxValue={setMaxValue}
-                      setStartValue={setStartValue}
+            <Settings setMaxValue={setMaxValueHandler}
+                      setStartValue={setStartValueHandler}
                       onClickSetButton={onClickSetButtonHandler}
-                      startValue={startValueForSetting}
-                      maxValue={maxValueForSetting}
+                      startValue={startValue}
+                      maxValue={maxValue}
                       isChangeSettings={setIsChangeSettings}
-                      setErrorStartInput={setErrorStartInput}
-                      setErrorMaxtInput={setErrorMaxInput}
                       errorStartInput={errorStartInput}
                       errorMaxInput={errorMaxInput}
                       isDisabled={!isChangeSettings}/>
             <Counter massage={massage}
-                     startValue={startValue}
-                     isMaxCount={isMaxCount}
+                     incValue={incValue}
                      addCount={addCount}
                      maxCount={maxValue}
                      resetCount={resetCount}
