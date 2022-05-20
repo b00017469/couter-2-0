@@ -4,21 +4,24 @@ import s from './Count.module.css'
 type CountPropsType = {
     incValue: number
     isMaxCount: boolean
-    massage: string
+    errorInput: boolean
     isClickSet: boolean
 }
 
 export const Count = (props: CountPropsType) => {
-    const countClassName = ()=>{
-        if (!props.isClickSet){
+    const MASSAGE_SET = "enter values and press 'SET'"
+    const MASSAGE_INCORRECT_VALUE = "you enter incorrect value"
+    const massage = props.errorInput ? MASSAGE_INCORRECT_VALUE : MASSAGE_SET
+    const countClassName = () => {
+        if (!props.isClickSet) {
             return `${s.count} ${s.massage}`
-        } else if (props.isMaxCount){
+        } else if (props.isMaxCount) {
             return `${s.count} ${s.max}`
         } else return `${s.count}`
-        }
+    }
     return (
         <div className={countClassName()}>
-            {props.isClickSet ? props.incValue : props.massage}
+            {props.isClickSet ? props.incValue : massage}
         </div>
     );
 };

@@ -17,29 +17,24 @@ type SettingsPropsType = {
 
 export const Settings = (props: SettingsPropsType) => {
 
-    const onChangeStartValue = (value: number) => props.setStartValue(value)
-
-    const onChangeMaxValue = (value: number) => props.setMaxValue(value)
-
-    const onClickHandler = () => props.onClickSetButton()
-
     const isDisabledHandler = props.isDisabled || props.errorStartInput || props.errorMaxInput
+
     return (
         <div className={s.settings}>
             <div className={s.block}>
                 <Input title={'max value:'}
-                       onChangeValue={onChangeMaxValue}
+                       onChangeValue={props.setMaxValue}
                        value={props.maxValue}
                        isChangeSettings={props.isChangeSettings}
                        error={props.errorMaxInput}/>
                 <Input title={'start value:'}
-                       onChangeValue={onChangeStartValue}
+                       onChangeValue={props.setStartValue}
                        value={props.startValue}
                        isChangeSettings={props.isChangeSettings}
                        error={props.errorStartInput}/>
             </div>
             <div className={s.block}>
-                <Button name="set" onClick={onClickHandler} isDisabled={isDisabledHandler}/>
+                <Button name="set" onClick={props.onClickSetButton} isDisabled={isDisabledHandler}/>
             </div>
         </div>
     );

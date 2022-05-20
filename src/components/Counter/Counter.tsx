@@ -9,7 +9,7 @@ type CounterPropsType = {
     addCount: () => void
     resetCount: () => void
     isDisabled: boolean
-    massage: string
+    errorInput: boolean
 }
 
 const Counter = (props: CounterPropsType) => {
@@ -19,7 +19,7 @@ const Counter = (props: CounterPropsType) => {
         <div className={s.counter}>
             <Count incValue={props.incValue}
                    isMaxCount={isMaxCount}
-                   massage={props.massage}
+                   errorInput={props.errorInput}
                 isClickSet={!props.isDisabled}/>
             <div className={s.block}>
                 <Button name="inc" onClick={props.addCount} isDisabled={isDisabledIncButton}/>
