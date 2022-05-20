@@ -8,47 +8,48 @@ function App() {
     let [maxValue, setMaxValue] = useState<number>(5)
     let [incValue, setIncValue] = useState<number>(startValue)
     let [isChangeSettings, setIsChangeSettings] = useState<boolean>(false)
-    let [errorStartInput, setErrorStartInput] = useState<boolean>(false)
-    let [errorMaxInput, setErrorMaxInput] = useState<boolean>(false)
     const KEY_START_VALUE = 'startValue'
     const KEY_MAX_VALUE = 'maxValue'
-    const errorInput = errorStartInput || errorMaxInput
+    let errorStartInput = false
+    let errorMaxInput = false
+    if (startValue < -1 || startValue > maxValue) {
+        errorStartInput = true
+    } else {
+        errorStartInput = startValue === -1 || startValue === maxValue;
+        errorMaxInput = startValue === maxValue;
+    }
+    if (maxValue < -1 || maxValue < startValue) {
+        errorMaxInput = true
+    } else {
+        errorMaxInput = maxValue === -1 || maxValue === startValue;
+        errorStartInput = maxValue === startValue || startValue === -1;
+    }
 
     const addCount = () => {
         if (incValue < maxValue) setIncValue(++incValue)
     }
     const resetCount = () => setIncValue(restoreValue(KEY_START_VALUE, 0))
 
-    useEffect(() =>  setValues(), [])
+    useEffect(() => setValues(), [])
 
     const setValues = () => {
-        setStartValue(restoreValue(KEY_START_VALUE, 0))
-        setMaxValue(restoreValue(KEY_MAX_VALUE, 5))
-        setIncValue(restoreValue(KEY_START_VALUE, 0))
+        let start = restoreValue(KEY_START_VALUE, 0)
+        let max = restoreValue(KEY_MAX_VALUE, 5)
+        if (start >= 0 && start < max) {
+            setStartValue(start)
+            setMaxValue(max)
+            setIncValue(start)
+        } else alert('The saved counter values are incorrect and will be replaced with default ones')
     }
 
     const setStartValueHandler = (value: number) => {
-        if (value < -1 || value > maxValue) {
-            setErrorStartInput(true)
-        } else {
+        if (value >= -1 && value <= maxValue) {
             setStartValue(value)
-            if (value === -1 || value === maxValue) {
-                setErrorStartInput(true)
-            } else setErrorStartInput(false)
-            if (value === maxValue) setErrorMaxInput(true)
-            else setErrorMaxInput(false)
         }
     }
     const setMaxValueHandler = (value: number) => {
-        if (value < -1 || value < startValue) {
-            setErrorMaxInput(true)
-        } else {
+        if (value >= -1 && value >= startValue) {
             setMaxValue(value)
-            if (value === -1 || value === startValue) {
-                setErrorMaxInput(true)
-            } else setErrorMaxInput(false)
-            if (value === startValue||startValue===-1) setErrorStartInput(true)
-            else setErrorStartInput(false)
         }
     }
     const onClickSetButtonHandler = () => {
@@ -68,6 +69,7 @@ function App() {
         if (valueAsString !== null) value = +valueAsString
         return value
     }
+    const errorInput = errorStartInput || errorMaxInput
 
     return (
         <div className="App">
