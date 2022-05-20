@@ -12,19 +12,14 @@ function App() {
     let [errorMaxInput, setErrorMaxInput] = useState<boolean>(false)
     const KEY_START_VALUE = 'startValue'
     const KEY_MAX_VALUE = 'maxValue'
-    const MASSAGE_SET = "enter values and press 'SET'"
-    const MASSAGE_INCORRECT_VALUE = "you enter incorrect value"
-
-    let massage = errorStartInput || errorMaxInput ? MASSAGE_INCORRECT_VALUE : MASSAGE_SET
+    const errorInput = errorStartInput || errorMaxInput
 
     const addCount = () => {
         if (incValue < maxValue) setIncValue(++incValue)
     }
     const resetCount = () => setIncValue(restoreValue(KEY_START_VALUE, 0))
 
-    useEffect(() => {
-        setValues()
-    }, [])
+    useEffect(() =>  setValues(), [])
 
     const setValues = () => {
         setStartValue(restoreValue(KEY_START_VALUE, 0))
@@ -85,7 +80,7 @@ function App() {
                       errorStartInput={errorStartInput}
                       errorMaxInput={errorMaxInput}
                       isDisabled={!isChangeSettings}/>
-            <Counter massage={massage}
+            <Counter errorInput={errorInput}
                      incValue={incValue}
                      addCount={addCount}
                      maxCount={maxValue}
