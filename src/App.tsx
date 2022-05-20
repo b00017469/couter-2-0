@@ -28,7 +28,7 @@ function App() {
     const addCount = () => {
         if (incValue < maxValue) setIncValue(++incValue)
     }
-    const resetCount = () => setIncValue(restoreValue(KEY_START_VALUE, 0))
+    const resetCount = () => setIncValue(startValue)
 
     useEffect(() => setValues(), [])
 
