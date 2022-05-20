@@ -26,7 +26,8 @@ function App() {
     }
 
     const addCount = () => {
-        if (incValue < maxValue) setIncValue(++incValue)
+        let value = ++incValue
+        if (incValue < maxValue) setIncValue(Math.trunc(value))
     }
     const resetCount = () => setIncValue(startValue)
 
@@ -43,12 +44,12 @@ function App() {
     }
     const setStartValueHandler = (value: number) => {
         if (value >= -1 && value <= maxValue) {
-            setStartValue(value)
+            setStartValue(Math.trunc(value))
         }
     }
     const setMaxValueHandler = (value: number) => {
         if (value >= -1 && value >= startValue) {
-            setMaxValue(value)
+            setMaxValue(Math.trunc(value))
         }
     }
     const onClickSetButtonHandler = () => {
