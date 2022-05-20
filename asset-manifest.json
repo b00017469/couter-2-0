@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/couter-2-0/static/css/main.ba9b7df7.css",
-    "main.js": "/couter-2-0/static/js/main.71da2e60.js",
+    "main.js": "/couter-2-0/static/js/main.4e32a154.js",
     "static/js/787.d1c5aa6b.chunk.js": "/couter-2-0/static/js/787.d1c5aa6b.chunk.js",
     "index.html": "/couter-2-0/index.html",
     "main.ba9b7df7.css.map": "/couter-2-0/static/css/main.ba9b7df7.css.map",
-    "main.71da2e60.js.map": "/couter-2-0/static/js/main.71da2e60.js.map",
+    "main.4e32a154.js.map": "/couter-2-0/static/js/main.4e32a154.js.map",
     "787.d1c5aa6b.chunk.js.map": "/couter-2-0/static/js/787.d1c5aa6b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ba9b7df7.css",
-    "static/js/main.71da2e60.js"
+    "static/js/main.4e32a154.js"
   ]
 }
