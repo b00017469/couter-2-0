@@ -41,7 +41,6 @@ function App() {
             setIncValue(start)
         } else alert('The saved counter values are incorrect and will be replaced with default ones')
     }
-
     const setStartValueHandler = (value: number) => {
         if (value >= -1 && value <= maxValue) {
             setStartValue(value)

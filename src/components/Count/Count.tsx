@@ -21,7 +21,7 @@ export const Count = (props: CountPropsType) => {
     }
     return (
         <div className={countClassName()}>
-            {props.isClickSet ? props.incValue : massage}
+         <span className={s.span}>  {props.isClickSet ? props.incValue : massage}</span>
         </div>
     );
 };

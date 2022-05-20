@@ -7,11 +7,16 @@
     justify-content: center;
     align-items: center;
 }
+.span{
+    overflow: hidden; /* Обрезаем всё за пределами блока */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+}
 
 .max {
     color: red;
     font-size: 65px;
 }
+
 .massage {
     font-size: 25px;
 }
