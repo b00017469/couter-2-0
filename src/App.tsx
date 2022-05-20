@@ -26,7 +26,8 @@ function App() {
     }
 
     const addCount = () => {
-        if (incValue < maxValue) setIncValue(++incValue)
+        let value = ++incValue
+        if (incValue < maxValue) setIncValue(Math.trunc(value))
     }
     const resetCount = () => setIncValue(startValue)
 
