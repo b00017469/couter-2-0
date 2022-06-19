@@ -10,13 +10,12 @@ function App() {
     let [isChangeSettings, setIsChangeSettings] = useState<boolean>(false)
     const KEY_START_VALUE = 'startValue'
     const KEY_MAX_VALUE = 'maxValue'
-    let errorStartInput = false
-    let errorMaxInput = false
+    let errorStartInput: boolean
+    let errorMaxInput: boolean
     if (startValue < -1 || startValue > maxValue) {
         errorStartInput = true
     } else {
         errorStartInput = startValue === -1 || startValue === maxValue;
-        errorMaxInput = startValue === maxValue;
     }
     if (maxValue < -1 || maxValue < startValue) {
         errorMaxInput = true
