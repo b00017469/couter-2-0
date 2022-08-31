@@ -1,74 +1,46 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Counter from "./components/Counter/Counter";
 import {Settings} from "./components/Settings/Settings";
+import {useDispatch, useSelector} from "react-redux";
+import {StateType} from "./bll/store";
+import {
+    InitialStateType,
+    setIncValue,
+    setMaxValue,
+    setStartValue
+} from "./bll/counter-reducer";
 
 function App() {
-    let [startValue, setStartValue] = useState<number>(0)
-    let [maxValue, setMaxValue] = useState<number>(5)
-    let [incValue, setIncValue] = useState<number>(startValue)
+
+    const counter = useSelector<StateType, InitialStateType>(state => state.counter)
+    const incValue = counter.incValue
+    const startValue = counter.startValue
+    const maxValue = counter.maxValue
+
+    const dispatch = useDispatch()
+
     let [isChangeSettings, setIsChangeSettings] = useState<boolean>(false)
-    const KEY_START_VALUE = 'startValue'
-    const KEY_MAX_VALUE = 'maxValue'
-    let errorStartInput: boolean
-    let errorMaxInput: boolean
-    if (startValue < -1 || startValue > maxValue) {
-        errorStartInput = true
-    } else {
-        errorStartInput = startValue === -1 || startValue === maxValue;
-    }
-    if (maxValue < -1 || maxValue < startValue) {
-        errorMaxInput = true
-    } else {
-        errorMaxInput = maxValue === -1 || maxValue === startValue;
-        errorStartInput = maxValue === startValue || startValue === -1;
-    }
 
-    const addCount = () => {
-        let value = ++incValue
-        if (incValue < maxValue) setIncValue(Math.trunc(value))
-    }
-    const resetCount = () => setIncValue(startValue)
+    let errorStartInput = startValue <= -1 || startValue >= maxValue
+    let errorMaxInput = maxValue <= -1 || maxValue <= startValue
 
-    useEffect(() => setValues(), [])
+    const errorInput = errorStartInput || errorMaxInput
 
-    const setValues = () => {
-        let start = restoreValue(KEY_START_VALUE, 0)
-        let max = restoreValue(KEY_MAX_VALUE, 5)
-        if (start >= 0 && start < max) {
-            setStartValue(start)
-            setMaxValue(max)
-            setIncValue(start)
-        } else alert('The saved counter values are incorrect and will be replaced with default ones.\n Change settings!')
-    }
     const setStartValueHandler = (value: number) => {
         if (value >= -1 && value <= maxValue) {
-            setStartValue(Math.trunc(value))
+            dispatch(setStartValue(Math.trunc(value)))
         }
     }
     const setMaxValueHandler = (value: number) => {
         if (value >= -1 && value >= startValue) {
-            setMaxValue(Math.trunc(value))
+            dispatch(setMaxValue(Math.trunc(value)))
         }
     }
     const onClickSetButtonHandler = () => {
-        saveValue(KEY_START_VALUE, startValue)
-        saveValue(KEY_MAX_VALUE, maxValue)
-        setIncValue(startValue)
+        dispatch(setIncValue(startValue))
         setIsChangeSettings(false)
     }
-
-    const saveValue = (key: string, value: number) => {
-        const stateAsString = JSON.stringify(value)
-        localStorage.setItem(key, stateAsString)
-    }
-    const restoreValue = (key: string, defaultValue: number) => {
-        let value = defaultValue
-        const valueAsString = localStorage.getItem(key)
-        if (valueAsString !== null) value = +valueAsString
-        return value
-    }
-    const errorInput = errorStartInput || errorMaxInput
 
     return (
         <div className="App">
@@ -83,9 +55,8 @@ function App() {
                       isDisabled={!isChangeSettings}/>
             <Counter errorInput={errorInput}
                      incValue={incValue}
-                     addCount={addCount}
                      maxCount={maxValue}
-                     resetCount={resetCount}
+                     startValue={startValue}
                      isDisabled={isChangeSettings}/>
         </div>
     );

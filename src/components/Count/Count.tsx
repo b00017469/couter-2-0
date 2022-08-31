@@ -3,7 +3,7 @@ import s from './Count.module.css'
 
 type CountPropsType = {
     incValue: number
-    isMaxCount: boolean
+    maxCount: number
     errorInput: boolean
     isClickSet: boolean
 }
@@ -15,7 +15,8 @@ export const Count = (props: CountPropsType) => {
     const countClassName = () => {
         if (!props.isClickSet) {
             return `${s.count} ${s.massage}`
-        } else if (props.isMaxCount) {
+        }
+        if (props.incValue===props.maxCount) {
             return `${s.count} ${s.max}`
         } else return `${s.count}`
     }
